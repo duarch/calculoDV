@@ -1,40 +1,25 @@
-function calcDV (){
-    var input = prompt("Digite um número:");
-    var numBase = Number(input);
-    var base = 2
-    var sum = 0
-    var digmod = 11
-    function extractDigit(num, index){
-        return Math.floor(num / Math.pow(10, index)) % 10;
-    }
-
-    function digitCount(num){
-        if (num === 0) return 1;
-        return Math.floor(Math.log10(num)) + 1;
-    }
-
-    function digitNew(num){
-        var numDigits = digitCount(num);
-        for (var i = 0; i < numDigits; i++){
-            var digit = extractDigit(num, i);
-            sum += digit * base
-            base++;
+function calcDVX (){
+    var n = Number(prompt("Digite um número:"));
+    function calcDV(n){
+        var b = 2
+        var s = 0
+        for (var i = 0; i < Math.floor(Math.log10(n)) + 1; i++){
+            var d = Math.floor(n / Math.pow(10, i)) % 10;
+            s += d * b
+            b++;
         }
-        var mod = sum % digmod;
-        if (mod >= 2){
-            sum = digmod - mod
+        var s = s % 11
+        if (s === 1){
+            s = "X"
         } else {
-            sum = 0
+            if (s === 0){
+                s = 0
+            } else {
+                s = 11 - s
+            }
         }
-        base = 2
-        dvcalc = sum
-        sum = 0
-        return dvcalc;
+        return s;
     }
-    var result = digitNew(numBase);
-    var secondDigit = digitNew(numBase*10 + result);
-
-    alert("O digito é " + result+secondDigit);
-    
+    var r = calcDV(n);
+    alert("O dígito é " + r + "\n" + n + "-" + r)
 }
-
